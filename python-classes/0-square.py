@@ -1,15 +1,10 @@
 #!/usr/bin/python3
 """
-This module defines an empty class Square.
-The purpose is to serve as the foundation for future
-Square-related features.
+This module defines an empty class Square as a starting point for later tasks.
 """
 
 
 class Square:
-    """
-    This is an empty class that defines a square.
-    Currently, it does not have any attributes or methods.
-    """
+    """Empty class that defines a square."""
     pass
 
