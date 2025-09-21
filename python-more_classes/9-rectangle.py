@@ -120,4 +120,3 @@ class Rectangle:
             size (int): size of the square.
         """
         return cls(size, size)
-
