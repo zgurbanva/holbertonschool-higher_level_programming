@@ -28,8 +28,9 @@ class Circle(Shape):
     def __init__(self, radius):
         if not isinstance(radius, (int, float)):
             raise TypeError("radius must be a number")
-        if radius <= 0:
-            raise ValueError("radius must be greater than 0")
+        # Zero is allowed; negatives are not
+        if radius < 0:
+            raise ValueError("radius must be >= 0")
         self.radius = radius
 
     def area(self):
@@ -47,8 +48,11 @@ class Rectangle(Shape):
             raise TypeError("width must be a number")
         if not isinstance(height, (int, float)):
             raise TypeError("height must be a number")
-        if width <= 0 or height <= 0:
-            raise ValueError("width and height must be greater than 0")
+        # Zero is allowed; negatives are not
+        if width < 0:
+            raise ValueError("width must be >= 0")
+        if height < 0:
+            raise ValueError("height must be >= 0")
         self.width = width
         self.height = height
 
@@ -56,6 +60,8 @@ class Rectangle(Shape):
         return self.width * self.height
 
     def perimeter(self):
+        # If either dimension is zero, perimeter is the usual 2*(w+h) which
+        # correctly becomes 0 only when both are zero.
         return 2 * (self.width + self.height)
 
 
