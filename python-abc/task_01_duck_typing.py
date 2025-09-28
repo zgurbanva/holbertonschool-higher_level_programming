@@ -37,7 +37,18 @@ class Circle(Shape):
     def __init__(self, radius):
         """
         Initialize a Circle with a given radius.
+
+        Args:
+            radius (float or int): The radius of the circle (must be > 0).
+
+        Raises:
+            TypeError: If radius is not a number.
+            ValueError: If radius <= 0.
         """
+        if not isinstance(radius, (int, float)):
+            raise TypeError("radius must be a number")
+        if radius <= 0:
+            raise ValueError("radius must be greater than 0")
         self.radius = radius
 
     def area(self):
@@ -61,7 +72,20 @@ class Rectangle(Shape):
     def __init__(self, width, height):
         """
         Initialize a Rectangle with width and height.
+
+        Args:
+            width (int or float): The width of the rectangle (must be > 0).
+            height (int or float): The height of the rectangle (must be > 0).
+
+        Raises:
+            TypeError: If width or height is not a number.
+            ValueError: If width <= 0 or height <= 0.
         """
+        for name, value in (("width", width), ("height", height)):
+            if not isinstance(value, (int, float)):
+                raise TypeError(f"{name} must be a number")
+            if value <= 0:
+                raise ValueError(f"{name} must be greater than 0")
         self.width = width
         self.height = height
 
