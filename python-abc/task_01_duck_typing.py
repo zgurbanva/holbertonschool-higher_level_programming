@@ -1,33 +1,23 @@
-#!/usr/bin/env python3
-"""
-Duck typing with abstract base classes:
-Define Shape as an abstract class and implement Circle and Rectangle.
-"""
-
 from abc import ABC, abstractmethod
 import math
 
 
+# 1. Abstract Base Class
 class Shape(ABC):
-    """Abstract base class for shapes."""
-
     @abstractmethod
     def area(self):
-        """Calculate the area of the shape."""
+        """Return the area of the shape"""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """Calculate the perimeter of the shape."""
+        """Return the perimeter of the shape"""
         pass
 
 
+# 2. Circle class
 class Circle(Shape):
-    """Circle shape."""
-
     def __init__(self, radius):
-        if not isinstance(radius, (int, float)):
-            raise TypeError("radius must be a number")
         if radius < 0:
             raise ValueError("radius must be >= 0")
         self.radius = radius
@@ -39,18 +29,11 @@ class Circle(Shape):
         return 2 * math.pi * self.radius
 
 
+# 3. Rectangle class
 class Rectangle(Shape):
-    """Rectangle shape."""
-
     def __init__(self, width, height):
-        if not isinstance(width, (int, float)):
-            raise TypeError("width must be a number")
-        if not isinstance(height, (int, float)):
-            raise TypeError("height must be a number")
-        if width < 0:
-            raise ValueError("width must be >= 0")
-        if height < 0:
-            raise ValueError("height must be >= 0")
+        if width < 0 or height < 0:
+            raise ValueError("width and height must be >= 0")
         self.width = width
         self.height = height
 
@@ -61,25 +44,19 @@ class Rectangle(Shape):
         return 2 * (self.width + self.height)
 
 
+# 4. shape_info function (duck typing: no isinstance checks!)
 def shape_info(shape):
-    """
-    Print area and perimeter of the given shape.
-    Relies on duck typing (expects shape to have area() and perimeter()).
-    """
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
 
 
+# 5. Testing
 if __name__ == "__main__":
-    # Quick self-test
-    c = Circle(5)
-    r = Rectangle(4, 7)
-    shape_info(c)
-    shape_info(r)
+    circle = Circle(5)
+    rectangle = Rectangle(4, 6)
 
-    # Zero dimensions allowed
-    c0 = Circle(0)
-    r0 = Rectangle(0, 0)
-    shape_info(c0)
-    shape_info(r0)
+    print("Circle:")
+    shape_info(circle)
 
+    print("\nRectangle:")
+    shape_info(rectangle)
