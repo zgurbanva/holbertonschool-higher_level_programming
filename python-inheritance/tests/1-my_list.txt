@@ -9,3 +9,12 @@
 [1, 2, 3]
 >>> print(my_list)  # original list unchanged
 [3, 1, 2]
+
+# empty list case
+>>> empty_list = MyList()
+>>> print(empty_list)
+[]
+>>> empty_list.print_sorted()
+[]
+>>> print(empty_list)
+[]
