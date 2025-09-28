@@ -1,30 +1,35 @@
 #!/usr/bin/env python3
+"""
+Duck typing with abstract base classes:
+Define Shape as an abstract class and implement Circle and Rectangle.
+"""
+
 from abc import ABC, abstractmethod
 import math
 
 
 class Shape(ABC):
-    """Abstract base class for shapes"""
+    """Abstract base class for shapes."""
 
     @abstractmethod
     def area(self):
-        """Return the area of the shape"""
+        """Calculate the area of the shape."""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """Return the perimeter of the shape"""
+        """Calculate the perimeter of the shape."""
         pass
 
 
 class Circle(Shape):
-    """Concrete Circle class"""
+    """Circle shape."""
 
     def __init__(self, radius):
         if not isinstance(radius, (int, float)):
             raise TypeError("radius must be a number")
-        if radius < 0:   # allow zero, forbid negatives
-            raise ValueError("radius must be >= 0")
+        if radius <= 0:
+            raise ValueError("radius must be greater than 0")
         self.radius = radius
 
     def area(self):
@@ -35,13 +40,15 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
-    """Concrete Rectangle class"""
+    """Rectangle shape."""
 
     def __init__(self, width, height):
-        if not isinstance(width, (int, float)) or not isinstance(height, (int, float)):
-            raise TypeError("width and height must be numbers")
-        if width < 0 or height < 0:   # allow zero, forbid negatives
-            raise ValueError("width and height must be >= 0")
+        if not isinstance(width, (int, float)):
+            raise TypeError("width must be a number")
+        if not isinstance(height, (int, float)):
+            raise TypeError("height must be a number")
+        if width <= 0 or height <= 0:
+            raise ValueError("width and height must be greater than 0")
         self.width = width
         self.height = height
 
@@ -53,6 +60,9 @@ class Rectangle(Shape):
 
 
 def shape_info(shape):
-    """Duck-typed function to display shape info"""
-    print("Area:", shape.area())
-    print("Perimeter:", shape.perimeter())
+    """
+    Print area and perimeter of the given shape.
+    Relies on duck typing (expects shape to have area() and perimeter()).
+    """
+    print(f"Area: {shape.area()}")
+    print(f"Perimeter: {shape.perimeter()}")
