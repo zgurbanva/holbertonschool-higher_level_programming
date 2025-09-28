@@ -6,7 +6,7 @@ This module defines the BaseGeometry class.
 
 class BaseGeometry:
     """
-    BaseGeometry class with a placeholder method for area.
+    BaseGeometry class with an unimplemented area() method.
     """
 
     def area(self):
