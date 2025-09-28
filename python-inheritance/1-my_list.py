@@ -1,4 +1,3 @@
-@@ -0,0 +1,20 @@
 #!/usr/bin/python3
 """
 A module to prints a list in ascending order
