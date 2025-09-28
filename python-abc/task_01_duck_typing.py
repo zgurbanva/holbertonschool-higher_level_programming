@@ -23,7 +23,7 @@ class Circle(Shape):
     def __init__(self, radius):
         if not isinstance(radius, (int, float)):
             raise TypeError("radius must be a number")
-        if radius < 0:   # allow 0, forbid negative
+        if radius < 0:   # allow zero, forbid negatives
             raise ValueError("radius must be >= 0")
         self.radius = radius
 
@@ -40,7 +40,7 @@ class Rectangle(Shape):
     def __init__(self, width, height):
         if not isinstance(width, (int, float)) or not isinstance(height, (int, float)):
             raise TypeError("width and height must be numbers")
-        if width < 0 or height < 0:   # allow 0, forbid negative
+        if width < 0 or height < 0:   # allow zero, forbid negatives
             raise ValueError("width and height must be >= 0")
         self.width = width
         self.height = height
