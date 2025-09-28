@@ -1,59 +1,67 @@
+# task_01_duck_typing.py
 from abc import ABC, abstractmethod
 import math
 
 
-# Abstract Base Class
+# 1) Abstract base class
 class Shape(ABC):
     @abstractmethod
     def area(self):
-        pass
+        """Return the area (may be signed for some shapes)."""
+        raise NotImplementedError
 
     @abstractmethod
     def perimeter(self):
-        pass
+        """Return the (non-negative) perimeter/circumference."""
+        raise NotImplementedError
 
 
-# Circle class
+# 2) Circle: allow negative radius but compute with abs so it doesn't crash
 class Circle(Shape):
     def __init__(self, radius):
-        # Instead of raising error, store absolute value
-        self.radius = abs(radius)
+        # Do not raise; just store the raw value
+        self.radius = radius
 
     def area(self):
-        return math.pi * (self.radius ** 2)
+        # Use absolute radius for a meaningful area
+        r = abs(self.radius)
+        return math.pi * (r ** 2)
 
     def perimeter(self):
-        return 2 * math.pi * self.radius
+        r = abs(self.radius)
+        return 2 * math.pi * r
 
 
-# Rectangle class
+# 3) Rectangle: keep signed dimensions; area must be signed per tests
 class Rectangle(Shape):
     def __init__(self, width, height):
-        # Instead of raising error, store absolute values
-        self.width = abs(width)
-        self.height = abs(height)
+        # Store as-is (tests expect signed area when a dimension is negative)
+        self.width = width
+        self.height = height
 
     def area(self):
+        # Signed area (e.g., -4 * 7 = -28) to match the test expectation
         return self.width * self.height
 
     def perimeter(self):
-        return 2 * (self.width + self.height)
+        # Perimeter should be non-negative; use absolute lengths
+        return 2 * (abs(self.width) + abs(self.height))
 
 
-# shape_info function (duck typing)
+# 4) Duck-typed utility (no isinstance checks)
 def shape_info(shape):
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
 
 
-# Testing
+# 5) Quick manual run (optional)
 if __name__ == "__main__":
-    # Negative Circle
-    circle_negative = Circle(-5)
-    print("Circle with negative radius:")
-    shape_info(circle_negative)
+    # Circle negative radius should not crash
+    c = Circle(-5)
+    print("Circle (radius = -5):")
+    shape_info(c)
 
-    # Negative Rectangle
-    rect_negative = Rectangle(-4, -6)
-    print("\nRectangle with negative dimensions:")
-    shape_info(rect_negative)
+    # Rectangle negative dimension should yield signed area
+    r = Rectangle(-4, 7)
+    print("\nRectangle (width = -4, height = 7):")
+    shape_info(r)
