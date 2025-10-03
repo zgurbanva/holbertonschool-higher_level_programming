@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-def no_c(my_string):
-    """Removes all characters 'c' and 'C' from a string"""
-    new_str = ""
-    for ch in my_string:
-        if ch != 'c' and ch != 'C':
-            new_str += ch
-    return new_str
+def print_matrix_integer(matrix=[[]]):
+    """Prints a matrix of integers"""
+    for row in matrix:
+        for i in range(len(row)):
+            if i < len(row) - 1:
+                print("{:d}".format(row[i]), end=" ")
+            else:
+                print("{:d}".format(row[i]), end="")
+        print()
