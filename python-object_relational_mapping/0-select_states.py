@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""List all states from a MySQL database using MySQLdb.
-
-The script takes MySQL credentials and a database name as arguments and
-prints each row of the `states` table as a tuple, ordered by id ascending.
+"""
+Lists all states from the database hbtn_0e_0_usa using MySQLdb.
+Usage: ./0-select_states.py <mysql_user> <mysql_password> <database_name>
+Results are sorted by states.id in ascending order and printed as tuples.
 """
 
 import sys
@@ -10,14 +10,14 @@ import MySQLdb
 
 
 def main():
-    """Connect to MySQL on localhost:3306 and list all states ordered by id."""
-    user, password, db_name = sys.argv[1], sys.argv[2], sys.argv[3]
+    """Connects to MySQL and prints all rows from states ordered by id ASC."""
+    user, passwd, db_name = sys.argv[1], sys.argv[2], sys.argv[3]
 
     conn = MySQLdb.connect(
         host="localhost",
         port=3306,
         user=user,
-        passwd=password,
+        passwd=passwd,
         db=db_name,
         charset="utf8"
     )
