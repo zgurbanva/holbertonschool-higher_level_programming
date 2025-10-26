@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Defines the City ORM model linked to the 'cities' table.
-The City class inherits from Base (imported from model_state).
+The City class inherits from Base that is imported from model_state.
 """
 
 from sqlalchemy import Column, Integer, String, ForeignKey
@@ -13,9 +13,9 @@ class City(Base):
     City ORM class mapped to the 'cities' table.
 
     Attributes:
-        id (int): auto-generated primary key, non-null.
-        name (str): city name (max 128 chars), non-null.
-        state_id (int): foreign key referencing states.id, non-null.
+        id (int): Auto-generated primary key, cannot be null.
+        name (str): City name (max 128 chars), cannot be null.
+        state_id (int): FK referencing states.id, cannot be null.
     """
     __tablename__ = 'cities'
 
