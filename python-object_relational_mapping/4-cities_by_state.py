@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""List all cities with their state names from a MySQL database using MySQLdb.
+"""List all cities from the database with their state name (MySQLdb).
 
 Usage:
     ./4-cities_by_state.py <mysql_user> <mysql_pwd> <db_name>
@@ -25,7 +25,7 @@ def main():
     )
     cur = conn.cursor()
 
-    # Single execute() call
+    # Single execute() call as required
     cur.execute(
         ("SELECT cities.id, cities.name, states.name "
          "FROM cities JOIN states ON cities.state_id = states.id "
