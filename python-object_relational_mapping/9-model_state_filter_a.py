@@ -1,33 +1,33 @@
 #!/usr/bin/python3
-"""List all State objects that contain the letter 'a' (sorted by id asc).
-
-Usage:
-    ./9-model_state_filter_a.py <mysql_user> <mysql_password> <database>
 """
-
-import sys
+Module for fetching all states containing letter 'a'.
+"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sys import argv
+
 from model_state import Base, State
 
-
+# Run only executed
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        sys.exit(1)
 
-    user = sys.argv[1]
-    pwd = sys.argv[2]
-    db = sys.argv[3]
+    # Engine creation with mysql and mysqldb DBAPI
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost:3306/{}"
+                           .format(argv[1], argv[2], argv[3]))
 
-    uri = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(user, pwd, db)
-    engine = create_engine(uri, pool_pre_ping=True)
+    # Creating all classes in DB
+    Base.metadata.create_all(engine)
+
+    # Creating Session and its instance
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    try:
-        q = session.query(State).filter(State.name.like('%a%')) \
-            .order_by(State.id)
-        for s in q:
-            print("{}: {}".format(s.id, s.name))
-    finally:
+    # Printing the result
+    for state in (session.query(State)
+                  .filter(State.name.like('%a%'))
+                  .order_by(State.id)):
+        print("{}: {}".format(state.id, state.name))
+
+    # Closing the session
+    if session:
         session.close()

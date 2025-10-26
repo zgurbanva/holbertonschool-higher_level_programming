@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module for deleting all the cities with 'a'.
+Module for adding Louisiana.
 """
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -22,10 +22,13 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Deleting everything with a
-    for state in session.query(State).filter(State.name.like('%a%')).all():
-        session.delete(state)
+    # Creating new city instance and adding it do db
+    s = State(name='Louisiana')
+    session.add(s)
     session.commit()
+
+    # Printing the new State id
+    print(s.id)
 
     # Closing the session
     if session:

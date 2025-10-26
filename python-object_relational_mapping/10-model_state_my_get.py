@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module for deleting all the cities with 'a'.
+Module for fetching all states containing letter 'a'.
 """
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -22,10 +22,16 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Deleting everything with a
-    for state in session.query(State).filter(State.name.like('%a%')).all():
-        session.delete(state)
-    session.commit()
+    # The Query
+    state = (session.query(State)
+             .filter(State.name == argv[4])
+             .first())
+
+    # Printing the result
+    if state is None:
+        print("Not found")
+    else:
+        print(state.id)
 
     # Closing the session
     if session:

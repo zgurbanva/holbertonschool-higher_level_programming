@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module for Selecting states"""
+"""Module for Selecting cities"""
 
 if __name__ == '__main__':
     from sys import argv
@@ -12,7 +12,9 @@ if __name__ == '__main__':
     )
     cursor = db.cursor()
 
-    cursor.execute('SELECT * FROM states')
+    cursor.execute('SELECT c.id, c.name, s.name \
+                    FROM cities AS c \
+                    INNER JOIN states AS s ON s.id = c.state_id ')
 
     for state in cursor.fetchall():
         print(state)
