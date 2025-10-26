@@ -1,21 +1,23 @@
 #!/usr/bin/python3
-"""List all states from the given MySQL database ordered by states.id."""
-import sys
-import MySQLdb
+"""Module for Selecting states"""
 
+if __name__ == '__main__':
+    from sys import argv
+    import MySQLdb
 
-def main():
-    """Connect to MySQL on localhost:3306 and print rows from the states table ordered by id."""
-    user, passwd, db = sys.argv[1], sys.argv[2], sys.argv[3]
-    conn = MySQLdb.connect(host="localhost", port=3306,
-                           user=user, passwd=passwd, db=db)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM states ORDER BY id ASC;")
-    for row in cur.fetchall():
-        print(row)
-    cur.close()
-    conn.close()
+    db = MySQLdb.connect(
+        user=argv[1],
+        password=argv[2],
+        database=argv[3]
+    )
+    cursor = db.cursor()
 
+    cursor.execute('SELECT * FROM states')
 
-if __name__ == "__main__":
-    main()
+    for state in cursor.fetchall():
+        print(state)
+
+    if cursor:
+        cursor.close()
+    if db:
+        db.close()
